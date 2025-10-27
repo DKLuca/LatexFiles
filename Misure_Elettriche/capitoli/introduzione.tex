@@ -1,0 +1,641 @@
+\section{Introduzione}
+\subsection{Perché misurare?}
+Le motivazioni principali che spingono a effettuare misure possono essere raggruppate in due categorie:
+\begin{itemize}
+    \item \textbf{Ragioni tecniche}: Controllo della qualità del processo produttivo, verifica delle specifiche del prodotto finito, validazione della conformità dei componenti acquistati.
+    \item \textbf{Ragioni scientifiche}: Verifica sperimentale di un modello o di una legge fisica, caratterizzazione e teorizzazione di un fenomeno naturale.
+\end{itemize}
+
+\subsection{Fondamenti della misurazione}
+Effettuare una misurazione richiede la definizione di una convenzione che stabilisca:
+\begin{itemize}
+    \item Un'unità di misura di riferimento
+    \item Un metodo di misurazione standardizzato
+    \item Un protocollo per la comunicazione del risultato
+\end{itemize}
+
+Misurare significa fondamentalmente confrontare il \textbf{misurando}\footnote{Del misurando si ha spesso una conoscenza incompleta, che può derivare da modelli matematici approssimati o da uno stato del sistema non completamente noto.} con un campione di riferimento. Da questo processo si ottiene un valore numerico che deve essere accompagnato dall'indicazione dell'unità di misura e dall'incertezza associata.
+
+\subsection{Classificazione delle misure}
+\begin{itemize}
+    \item \textbf{Misure dirette}: Vengono effettuate quando lo \textbf{strumento}\footnote{Gli strumenti di misura spesso presentano comportamenti non ideali: possono necessitare di taratura, subire effetti di invecchiamento o generare rumore interno.} è in grado di misurare direttamente la grandezza di interesse mediante strumenti tarati.
+    \item \textbf{Misure indirette}: Utilizzate quando non esiste uno strumento per la misura diretta (es. $v = \frac{ds}{dt} \simeq \frac{\Delta s}{\Delta t}$). Richiedono la conoscenza di una relazione fisica che lega la grandezza incognita a grandezze misurabili direttamente.
+\end{itemize}
+
+\subsection{Terminologia metrologica}
+\begin{description}
+    \item[Accuratezza]: Grado di concordanza tra il valore misurato e il valore vero della grandezza.
+    \item[Precisione]: Attitudine di uno strumento a fornire valori poco dispersi tra loro nelle stesse condizioni di misura.
+    \item[Risoluzione]: Minima variazione della grandezza in ingresso che produce una variazione apprezzabile nell'indicazione dello strumento.
+    \item[Sensibilità]: Rapporto tra la variazione del segnale di uscita e la variazione del segnale di ingresso che l'ha prodotta.
+    \item[Dinamica]: Rapporto tra il massimo e il minimo valore misurabile della grandezza.
+    \item[Ripetibilità]: Capacità di uno strumento di fornire risultati concordi in misurazioni successive nelle stesse condizioni.
+    \item[Riproducibilità]: Concordanza tra risultati di misurazioni ottenuti cambiando condizioni operative, una volta corretti gli effetti sistematici.
+\end{description}
+
+\subsection{Approccio moderno all'incertezza}
+Nell'approccio tradizionale si parlava di "errore", mentre nella metrologia moderna si preferisce il concetto di \textbf{incertezza}\footnote{L'incertezza rappresenta la semiampiezza dell'intervallo di valori plausibili per il misurando.}. Ogni risultato di misura deve essere accompagnato dalla stima della sua incertezza.
+
+Il risultato di una misura non è un valore singolo ma un intervallo di valori che esprime la nostra conoscenza del misurando. Gli errori sistematici devono essere identificati e corretti, mentre rimangono gli errori casuali che contribuiscono all'incertezza.
+
+La Guida all'Espressione dell'Incertezza di Misura (GUM) fornisce un framework standardizzato per quantificare l'incertezza in modo confrontabile. Una misura completa deve contenere tre elementi: il valore centrale, l'incertezza e l'unità di misura. Le notazioni comuni sono:
+\begin{itemize}
+    \item $x = 12.345(21)$ UM
+    \item $x = 12.345 \pm 0.021$ UM
+\end{itemize}
+
+\subsection{Modello probabilistico e tipi di incertezza}
+La grandezza incognita può essere modellata come una variabile aleatoria. Esistono due approcci per stimarne l'incertezza:
+\begin{itemize}
+    \item \textbf{Tipo A}: Valutazione mediante metodi statistici (analisi di serie di osservazioni)
+    \item \textbf{Tipo B}: Valutazione mediante altri mezzi (informazioni a priori, dati di taratura, ecc.)
+\end{itemize}
+Nella pratica si utilizza spesso una combinazione delle due (tipo C).
+
+\subsection{Stima di tipo A}
+Per una distribuzione normale (gaussiana):
+\begin{equation}
+    f_X(x) = \frac{1}{\sqrt{2\pi}\sigma} \exp\left(-\frac{1}{2}\left(\frac{x - \mu}{\sigma}\right)^2\right)
+\end{equation}
+
+La distribuzione normale non è limitata superiormente né inferiormente. L'intervallo $\pm 3\sigma$ copre approssimativamente il 99.7\% della probabilità.
+
+Per un insieme di misure $X = [1.2345, 1.2348, 1.2336, 1.2341]$, la migliore stima del valore vero è la media campionaria:
+\begin{equation}
+    \bar{x} = \frac{1}{N} \sum_{i=1}^{N} x_i
+\end{equation}
+
+Mente la varianza campionaria è data da:
+\begin{equation}
+    s^2(x) = \frac{1}{N-1} \sum(x_i - \bar{x})^2
+\end{equation}
+La varianza non può essere 0, si tende quindi a calcolare la deviazione standard campionaria delle medie campionarie: l'incertezza è $s(\bar{x}) = U_A(x) = \frac{s(x)}{\sqrt{N}}$ con $U_A$ stima di tipo A
+\begin{equation}
+    s(\bar{x})^2 = \frac{1}{N(N-1)}\sum (x_i -\bar{x})^2
+\end{equation}
+
+L'incertezza standard è denominata con $u_A(x) = s(\bar{x})$ se di tipo A
+
+\subsection{Stima di tipo B}
+L'incertezza di tipo B si utilizza quando non si possono fare un gran numero di campioni, le motivazioni dietro a questo sono diverse, ad esempio fare più campioni è troppo costoso dal punto di vista di tempo e/o soldi.\\
+L'incertezza intrinseca dello strumento o tutte le informazioni più importanti sono scritte nel manuale. Negli strumenti costosi c'è scritto pure la distribuzione di probabilità mentre nei più economici si scrive "max x\%". Sapendo che la distribuzione gaussiana non è limitata inferiormente e nemmeno superiormente, bisogna trovare una nuova distribuzione per descrivere tale andamento. Nel nostro caso si userà sempre una distribuzione lineare.
+\subsubsection{Distribuzione lineare}
+    \[
+        \sigma^2 = \int_{-\infty}^{+\infty}(x-\mu)^2f(x)dx = \int_{-\Delta}^\Delta \frac{(x-\mu)^2}{2\Delta}dx = \frac{\Delta^2}{3}
+    \]
+    Prendendo un righello si ha un $\Delta x = 1mm$ e l'incertezza può cadere tra $\pm 0.5mm$. Risulta quindi che $\sigma = \frac{0.5}{\sqrt{3}}$ (sostituisco i valori nella formula sopra).
+\paragraph{Distribuzione triangolare}
+    Risulta che $\sigma^2 = \frac{\Delta ^2}{6}$
+\paragraph{Distribuzione a U}
+$\frac{1}{a\pi}\frac{1}{\sqrt{1-(\frac{x}{a})^2}}$ e $\sigma_U = \frac{a^2}{2}$
+
+L'incertezza di una gaussiana copre il 68\% che risulta essere un po' poco. Si utilizza quindi l'incertezza estesa.
+
+\section{Incertezza Estesa}
+\[
+    U(x) = K u(x)
+\] K risulta essere il \textbf{fattore di copertura}. Solitamente risulta un intero e compreso tra 2 e 4. La misura quindi non può essere più rappresentata con un $\pm \delta$ in quanto risulta troppo piccola, si usa quindi l'estesa come ad esempio $\pm 3\sigma$.
+
+Se ho poche misure (es. 3) e fornisco un'incertezza estesa come l'esempio sopra, chi mi dice che siano ragionevoli? Si usa quindi la distribuzione di Student, il fattore di copertura deve essere molto maggiore se ho pochi campioni. Più campioni ho e più il fattore di copertura tende a 2.
+
+\subsection{Compatibilità fra misurazioni}
+Una volta stabilita l'incertezza estesa con un grado di confidenza e si prendono due misure distinte, esse si dicono compatibili se sono anche in minima parte sovrapponibili
+
+\subsection{Propagazione dell'incertezza}
+Se c'è una sola variabile, prendo la funzione che descrive il fenomeno, faccio la derivata per ottenere il coefficiente di sensibilità. Se ho più incertezze descritte f
+
+\section{Propagazione dell’incertezza e correlazione}
+
+Sia $y = f(x_1, x_2, \ldots, x_N)$.
+
+L’incertezza combinata su $y$ è data da:
+\[
+u_c^2(y) = \sum_{i=1}^N \left( \frac{\partial f}{\partial x_i} \right)^2 u^2(x_i)
+\]
+
+Nel caso in cui le variabili siano correlate:
+\[
+u_c^2(y) = \sum_{i=1}^N \left( \frac{\partial f}{\partial x_i} \right)^2 u^2(x_i)
+ + 2\sum_{i=1}^{N-1} \sum_{j=i+1}^{N} \frac{\partial f}{\partial x_i} \frac{\partial f}{\partial x_j} \, u(x_i,x_j)
+\]
+dove $u(x_i,x_j)$ è la \textbf{covarianza}.
+
+\[
+u(x_i,x_j) = r(x_i,x_j) \, u(x_i)\,u(x_j)
+\]
+con $r(x_i,x_j)$ coefficiente di correlazione, tale che $r(x_i,x_j) \in [-1, 1]$.
+
+\vspace{1em}
+\noindent
+Se le variabili non sono correlate ($r = 0$), le covarianze si annullano.
+
+\subsection{Somma di incertezze indipendenti}
+Se ho più incertezze (es. $u_1$ e $u_2$) devo sommare i loro contributi:
+\[
+u_T^2 = u_1^2 + u_2^2
+\]
+cioè la somma delle varianze.
+
+Se le due variabili sono indipendenti, le distribuzioni si sommano per convoluzione (es. due gaussiane indipendenti $\Rightarrow$ somma ortogonale).
+
+\subsection*{Variabili correlate}
+Se invece sono dipendenti, allora hanno una correlazione. Se una variabile aumenta, anche l’altra può aumentare (o diminuire) in modo regolare.
+
+La formula generale diventa:
+\[
+u^2(A) = 
+\left( \frac{\partial A}{\partial B} \right)^2 u^2(B)
++ \left( \frac{\partial A}{\partial H} \right)^2 u^2(H)
++ 2 \frac{\partial A}{\partial B} \frac{\partial A}{\partial H} u(B,H)
+\]
+
+\subsection{Esempio: aree correlate}
+\[
+A = B \cdot H
+\]
+Se le due misure sono completamente correlate, la variazione ha lo stesso segno.
+
+\[
+u_c^2(y) = \sum_{i=1}^N \left( \frac{\partial f}{\partial x_i} \right)^2 \frac{s^2(x_i)}{n_i} + 2 \sum_{i=1}^{N-1}\sum_{k=i+1}^{N} \frac{\partial f}{\partial x_i}\frac{\partial f}{\partial x_k} u(x_j,x_k)
+\]
+
+\subsection{Propagazione delle incertezze nel caso generale}
+\[
+y_i = f(x_1, x_2, \ldots, x_N)
+\]
+\[
+\delta y_i = \sum_{j=1}^{N} \frac{\partial f}{\partial x_j} \delta x_j
+\]
+\[
+s_y^2 = \sum_{j=1}^{N} \left( \frac{\partial f}{\partial x_j} \right)^2 s_{x_j}^2
+ + 2 \sum_{j=1}^{N-1}\sum_{k=j+1}^{N} \frac{\partial f}{\partial x_j}\frac{\partial f}{\partial x_k} s(x_j,x_k)
+\]
+
+\subsection{Covarianza e coefficiente di correlazione}
+\[
+r(x_j,x_k) = \frac{u(x_j,x_k)}{u(x_j)\,u(x_k)}, \quad r(x_j,x_k) \in [-1,1]
+\]
+La covarianza e la correlazione non sono sinonimi: due misure possono essere correlate o indipendenti, ma non necessariamente causali.
+
+\paragraph{Esempio}
+\[
+A = kB \quad \Rightarrow \text{causale e correlata.}
+\]
+\[
+A = B^2 \quad \text{causale ma non correlata linearmente.}
+\]
+
+\subsection*{Incertezza composta}
+Alla fine di tutte le misure (tipo A e tipo B) si ottiene:
+\[
+u_c(A) = \sqrt{u_A^2(A) + u_B^2(A)}
+\]
+ovvero la somma delle incertezze combinate.
+
+\paragraph{Esempio numerico}
+\[
+N = 3, \quad \bar{x} = 1.423
+\]
+\[
+u_A = 0.0032, \quad u_B = 0.0034
+\]
+\[
+u_c = \sqrt{0.0032^2 + 0.0034^2} = 0.0046
+\]
+\[
+\Rightarrow x = 1.423 \pm 0.0046
+\]
+
+\subsection*{Caso di misurazioni correlate}
+Esempio: $z = x \cdot y$
+
+\begin{enumerate}[label=\Roman*.]
+\item Calcolo $\bar{x}$ e $\bar{y}$
+\item Calcolo $u_A(x)$ e $u_A(y)$
+\item Calcolo $z_i = x_i y_i$
+\item Calcolo $u_A(z)$
+\item Calcolo $u_B(z)$ (uguale a $u_A(z)$ con possibile fattore di correlazione)
+\item Calcolo $u_c(z)$
+\end{enumerate}
+
+\subsection*{Esercizio: resistenze in parallelo}
+\[
+R_t = \frac{R_1 R_2}{R_1 + R_2}
+\]
+
+\[
+\frac{\partial R_t}{\partial R_1} = \frac{R_2^2}{(R_1+R_2)^2}, \qquad 
+\frac{\partial R_t}{\partial R_2} = \frac{R_1^2}{(R_1+R_2)^2}
+\]
+
+\[
+u_c^2(R_t) = \left(\frac{R_2^2}{(R_1+R_2)^2}\right)^2 u^2(R_1)
++ \left(\frac{R_1^2}{(R_1+R_2)^2}\right)^2 u^2(R_2)
+\]
+Se $R_1$ e $R_2$ non sono correlate.
+
+Nel caso generale:
+\[
+u_c^2(R_t) =
+\left(\frac{R_2^2}{(R_1+R_2)^2}\right)^2 u^2(R_1)
++ \left(\frac{R_1^2}{(R_1+R_2)^2}\right)^2 u^2(R_2)
++ 2 \frac{R_1^2 R_2^2}{(R_1+R_2)^4} \, u(R_1,R_2)
+\]
+
+tutta quello detto sopra è prevista dalla GUM.
+\section{Modello deterministico}
+Esiste un modello deterministico che è analogo e ci fornisce l'incertezza massima della misura. Le gaussiane non sono limitate superiormente o inferiormente e quindi questo modello non si basa sulle gaussiane stesse.
+
+\[
+y = f(x_1, x_2, \ldots, x_n)
+\]
+
+L'incertezza si indica con $\delta$
+
+\[
+\delta_y = \sum_i \left|\left( \frac{\partial f}{\partial x_i} \right) \delta_{x_i} \right|
+\]
+
+\subsection{Analogia con il metodo probabilistico}
+\begin{itemize}
+    \item l'incertezza non ha il valore della deviazione standard ma il valore massimo
+    \item c'è una somma lineare dei moduli. Questo considera che le variabili di ingresso contribuiscano \textbf{sempre} in modo lineare e positivo all'incertezza (caso peggiore)
+    \item non possiamo applicare il modello deterministico se c'è anche una sola $u(x_i)$. Si deve trasformare $\delta$ in $u$ e \textbf{MAI} il contrario.
+\end{itemize}
+
+\subsection{Limiti della propagazione delle incertezze}
+
+\[
+\text{(es. diodo)}
+\]
+
+\[
+I = I_s \left( e^{\frac{V_{AK}}{V_{th}}} - 1 \right)
+\]
+
+$V_{AK}^*$ è in mezzo alle due grandezze (incertezza abbastanza grande)  
+$I^*$ non è centrato quindi la media, moda e mediana non sono lo stesso numero e questo implica che non è più una gaussiana.
+
+Questa approssimazione funziona bene quando l’incertezza di ingresso è piccola tale che lo sviluppo in serie di Taylor troncato al primo termine rappresenti bene il modello (il segmento è vicino alla f)
+
+\paragraph{Incertezza compatibile con il risultato}  
+Un altro limite risulta il seguente:
+\[
+\Delta T = 0.53(36)s = 0.53 \pm 0.36s
+\]
+
+ha una probabilità del 5\% che il risultato sia negativo ($\Delta$T non deve essere positivo). Hanno considerato per buono per lo sviluppo in serie di Taylor quando non lo è . 
+
+\[
+y = f(x_1, x_2, \ldots, x_n)
+\]
+\[
+y_1 = \frac{\partial f}{\partial x_1} \delta x_1
+\]
+\[
+y_2 = \frac{\partial f}{\partial x_2} \delta x_2
+\]
+\[
+\ldots
+\]
+\[
+y_n = \frac{\partial f}{\partial x_n} \delta x_n
+\]
+
+Consideriamo $u(x_1)$ e $u(x_2)$ non gaussiani, la convoluzione dei due risulta un trapezio che ha un andamento molto più simile a una gaussiana rispetto a una distribuzione lineare. Con un terzo segnale risulta una specie di coseno rialzato che ha un andamento ancora più simile.\\
+Se combino tante variabili non gaussiane (per niente) ottengo un risultato simile a una gaussiana per il \textbf{Teorema del limite centrale}
+
+
+
+
+
+\subsection{Amplificatore invertente con guadagno -2.2}
+\[
+R_1 [k\Omega], \quad R_2 [k\Omega], \quad G_i = \frac{R_2}{R_1}
+\]
+
+\[
+\begin{array}{ccc}
+R_1 [k\Omega] & R_2 [k\Omega] & G_i = R_2/R_1 \\ \hline
+1.000 & 2.200 & 2.2000 \\
+1.003 & 2.207 & 2.2004 \\
+0.996 & 2.191 & 2.1998 \\
+1.001 & 2.202 & 2.1998 \\
+1.002 & 2.204 & 2.1986 \\
+\end{array}
+\]
+
+\[
+\bar{G_i} = \frac{\sum G_i}{5} = 2.19992
+\]
+
+\[
+u_A(G) =  \sqrt{\frac{1}{5\cdot4}\sum (G_i - \bar{G})^2} = 1.36 \times 10^{-4}
+\]
+
+\paragraph{Calcolo con propagazione delle incertezze}
+
+\[
+\bar{R_1} = \frac{1}{5}\sum R_{1,i} = 1.0004\,k\Omega
+\]
+\[
+u_A(R_1) =  \sqrt{ \frac{1}{5\cdot4} \sum (R_{1,i} - \bar{R_1})^2} = 1.2\cdot10^{-3}\,k\Omega
+\]
+\[
+\bar{R_2} = \frac{1}{5}\sum R_{2,i} = 2.2008\,k\Omega
+\]
+\[
+u_A(R_2) = \sqrt{ \frac{1}{5\cdot4} \sum (R_{2,i} - \bar{R_2})^2} = 2.7\cdot10^{-3}\,k\Omega
+\]
+
+\paragraph{Guadagno medio}
+\[
+\bar{G} = \frac{\bar{R_2}}{\bar{R_1}} = 2.19992
+\]
+
+Non cambia molto perché il rapporto è praticamente lineare.  
+Non si considera correlazione (sbagliato):
+
+\[
+u_A^2(G) = \left( \frac{\partial G}{\partial R_1} \right)^2 u_A^2(R_1)
++ \left( \frac{\partial G}{\partial R_2} \right)^2 u_A^2(R_2)
+\]
+\[
+u_A^2(G) = \left( -\frac{R_2}{R_1^2} \right)^2 u_A^2(R_1)
++ \left( \frac{1}{R_1} \right)^2 u_A^2(R_2)
+\]
+\[
+u_A(G) = 3.9\cdot10^{-3}
+\]
+Risulta essere molto diverso dalla prima perché non si tiene conto della correlazione che invece è presente.
+
+
+
+
+
+---
+
+\section*{Specchio a corrente}
+
+\[
+I_C = \frac{V_{CC} - V_{BE}}{R}
+\]
+\[
+R = 2.2k\Omega \quad V_{BE} = 0.622V \quad V_{CC} = 10V
+\]
+
+\[
+I_C = \frac{10 - 0.622}{2.2k\Omega} = 4.25mA
+\]
+
+\[
+V_{CE} = V_{CC} - I_C R_C = 10 - (4.25mA)(2.2k\Omega) = 0.63V
+\]
+
+\noindent
+Nel transistor:
+\[
+V_{CC} - V_{BE} = I_C(2R_E)
+\]
+\[
+I_C = \frac{V_{CC} - V_{BE}}{2R_E} = \frac{10 - 0.622}{4.4k\Omega} = 2.13mA
+\]
+
+\noindent
+\textbf{Incertezze:}
+\[
+u(V_{CC}) = 0.01V, \quad u(V_{BE}) = 0.002V, \quad u(R_E) = 0.02k\Omega
+\]
+
+\[
+u(I_C) = \sqrt{\left( \frac{\partial I_C}{\partial V_{CC}} u(V_{CC}) \right)^2 +
+\left( \frac{\partial I_C}{\partial V_{BE}} u(V_{BE}) \right)^2 +
+\left( \frac{\partial I_C}{\partial R_E} u(R_E) \right)^2}
+\]
+\[
+u(I_C) = \sqrt{\left( \frac{1}{R_E} \right)^2 u^2(V_{CC}) +
+\left( \frac{1}{R_E} \right)^2 u^2(V_{BE}) +
+\left( \frac{V_{CC} - V_{BE}}{R_E^2} \right)^2 u^2(R_E)}
+\]
+
+---
+
+\section*{Esperienza di caduta}
+
+\[
+h = 2.4\,m, \quad t = 0.696\,s
+\]
+\[
+u(h) = 0.001\,m, \quad u(t) = 0.001\,s
+\]
+\[
+g = \frac{2h}{t^2} = \frac{2(2.4)}{(0.696)^2} = 9.91\,m/s^2
+\]
+\[
+u(g) = \sqrt{\left( \frac{\partial g}{\partial h} \right)^2 u^2(h) + \left( \frac{\partial g}{\partial t} \right)^2 u^2(t)}
+\]
+\[
+\frac{\partial g}{\partial h} = \frac{2}{t^2}, \quad \frac{\partial g}{\partial t} = -\frac{4h}{t^3}
+\]
+\[
+u(g) = \sqrt{\left( \frac{2}{t^2} \right)^2 u^2(h) + \left( \frac{4h}{t^3} \right)^2 u^2(t)} = 0.14\,m/s^2
+\]
+
+\paragraph{Incertezze di strumenti}
+\[
+\text{cronometro: } u(t) = 0.001\,s \quad \text{(risoluzione dello strumento)}
+\]
+\[
+\text{metro: } u(h) = 0.001\,m
+\]
+
+\[
+h = 2.4 \pm 0.001\,m, \quad t = 0.696 \pm 0.001\,s
+\]
+
+\[
+g = 9.91 \pm 0.14\,m/s^2
+\]
+
+---
+
+\section*{Misura con distribuzione non uniforme (non permutata)}
+
+\[
+u(\text{stop}) = 0.001\,s, \quad \Delta t = t_{stop} - t_{start} = 0.049\,s
+\]
+\[
+t_{stop} = 13.05:10, \quad t_{start} = 13.00:00
+\]
+\[
+t_{stop} - t_{start} = 0.049\,s
+\]
+\[
+QMS = \frac{b \cdot h_m}{S} = 0.01446\,m^3/s
+\]
+\[
+u(\text{strumento}) = \frac{u(\text{stop})}{\sqrt{3}} = 0.316\,s
+\]
+
+\[
+u(QMS) = \sqrt{\left( \frac{\partial QMS}{\partial h} u(h) \right)^2 +
+\left( \frac{\partial QMS}{\partial t} u(t) \right)^2 +
+\left( \frac{\partial QMS}{\partial A(T)} u(A(T)) \right)^2}
+\]
+
+\[
+I_{tot} = \frac{V_{TOT}}{R_T} = \frac{12.647}{1.125} = 11.24\,A
+\]
+
+\[
+Q_{tot} = 2.6\,A
+\]
+
+\section{Esercizi}
+\subsection{Esercizio 1}
+    \textit{Ho un sacchetto di n viti che pesa M, ogni vite pesa Mv}
+
+\begin{itemize}
+  \item $\delta M= 0.1\% = 5g$
+  \item 1Kg
+  \item $M_v = 5g$
+  \item $\frac{\delta MV}{MV} = 1\%$
+\end{itemize}
+
+\noindent
+$N=\frac{M}{M_v} = 200$
+
+\paragraph{Espressione $\delta H$ e $\delta HV$ in numero}
+\[
+(0.1\% \cdot 1) + 0.005 = 0.006\, \text{kg}
+\]
+\[
+\delta M_V = 1\% (0.005) = 5\cdot10^{-5} \, \text{kg}
+\]
+
+\paragraph{Approccio deterministico}
+\[
+\frac{\partial N}{\partial H} = \frac{1}{M_V}, \qquad \frac{\partial N}{\partial HV} = -\frac{M}{M_V^2}
+\]
+
+\[
+\delta N = \left| \frac{\partial N}{\partial M} \delta M\right|  + \left| \frac{\partial N}{\partial M_V}\delta M_V \right| 
+\]
+\[
+\delta N = \left( \frac{0,006}{0.005} \right) + \left| -\frac{1}{0.005^2} \right| 5\cdot10^{-5} = 1,2+2
+\]
+
+\vspace{1em}
+
+\subsection{Esercizio 2}
+Si misura ripetutamente una tensione
+\[
+U_{95}(V_X) = 0.0001\,V_X
+\]
+
+\[
+\bar{V}_X = \frac{\sum V_{X_i}}{N} = 1.3458561\,\text{V}
+\]
+\[
+u_A(V_X) = \sqrt{\frac{\sum (V_{X_i} - \bar{V}_X)^2}{N(N-1)}} = 23.2\,\mu V
+\Rightarrow \frac{s(V_X)}{\sqrt{N}}
+\]
+L'operazione di arrotondamento la faccio alla fine di tutto
+\[
+u_B(V_X) = \frac{U_{95}(V_X)}{2} = \frac{0.0001 \bar{V_X}}{2} = 67\,\mu V
+\]
+\[
+u_C(V_X) = \sqrt{u_A(V_X)^2 + u_B(V_X)^2} = 71\,\mu V
+\]
+
+\noindent
+Arrotondo il valore di $V_X$  ai micro che è l'unità dell’errore:
+
+\[
+V_k = 3.345856(71)\,V \quad \text{o} \quad 3.345856 \pm 0.0000071\,V
+\]
+
+\subsection{Esercizio 3}
+\[
+U_{95}(V_X) = 0.1\%\,\text{RANGE + 0.1\% READING}
+\]
+\[
+\text{MANTISSA = 5 → range 50mV, 500mV, 5V, 50V, 500V}
+\]
+
+\[
+\bar{V}_X = \frac{\sum V_i}{N} = 3.4437625\,V
+\]
+\[
+u_A = 3.09\,mV
+\]
+
+\[
+u_B(V_x) = \frac{U_{95}(V_x)}{2} = \frac{0.001R + 0.001 \bar{V_x}}{2}
+\]
+
+\noindent
+\[
+u_B(V_x) = \frac{5mV + 3.44mV}{2} = 4.22mV
+\]
+
+\[
+u_C(V_x) = \sqrt{u_A(V_x)^2 + u_B(V_x)^2} = \sqrt{1.26^2 + 4.22^2} = 5.3mV
+\]
+\[
+V_x = 3.4438(53)V
+\]
+\subsection{Esercizio 4}
+\[
+V_T = 0.752V \quad U_{95}(V_T)=1mV \quad U_{95}(Vletta)=0.01\% V_{FS}+0.1\% V_{lettura}
+\]
+\[
+\text{Mantissa } 2
+\]
+\[
+R_1=1k\Omega \quad V_{GSCR}=12V
+\]
+\[
+V_{DS}=1.8543V \quad V_{GS}=3.7721V \quad V_{DD}-V_D=12-1.227V
+\]
+\[
+V_{GS,V_T}=0.0223V \Rightarrow \text{si sono in saturazione}
+\]
+
+\[
+I_D = \beta (V_{GS}-V_T)^2 \quad \beta = \frac{2I_D}{(V_{GS}-V_T)^2R}
+\]
+\[
+\beta = \frac{2\cdot 5.2mA}{(3.52-0.25)^2\cdot 1k\Omega} = 5.25mA/V^2
+\]
+
+\[
+\frac{\partial \beta}{\partial V_{GS}} = \frac{2I_D}{R(V_{GS}-V_T)^3} = 1.3828\,mA/V^3
+\]
+\[
+\frac{\partial \beta}{\partial R} = \frac{-2I_D}{R^2(V_{GS}-V_T)^2} = -5.2\,\mu
+\]
+\[
+u(\beta) = \sqrt{\left( \frac{\partial \beta}{\partial V_{GS}} \right)^2 u^2(V_{GS}) + \left( \frac{\partial \beta}{\partial R} \right)^2 u^2(R)} = 8.68m
+\]
+
+\[
+\frac{\partial \beta}{\partial V_T} = \frac{-2V_T}{R(V_{GS}-V_T)^3} = 8.68m
+\]
+
+\[
+u(R) = \frac{V_{GSCR}}{2} = 0.5\Omega
+\]
+\[
+u(\beta) = \sqrt{(0.001)^2 + (0.001)^2 + 3.372^2} = 2.98mV
+\]
+
+
+\[
+u(V_{GS}) = \frac{V_{GS}(V)}{2} = 0.5mV
+\]
+\[
+u(\beta) = \sqrt{\left( \frac{\partial \beta}{\partial I_D} \right)^2 u^2(I_D) + 
+\left( \frac{\partial \beta}{\partial V_{GS}} \right)^2 u^2(V_{GS}) +
+\left( \frac{\partial \beta}{\partial R} \right)^2 u^2(R)} = 1.087V
+\]
